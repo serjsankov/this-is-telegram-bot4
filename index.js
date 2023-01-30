@@ -41,18 +41,18 @@ const start = () => {
     );
   });
 
-  setInterval(function () {
-    for (var i = 0; i < notes.length; i++) {
-      const curDate = new Date().getHours() + ":" + new Date().getMinutes();
-      if (notes[i]["time"] === curDate) {
-        bot.sendMessage(
-          notes[i]["uid"],
-          "Напоминаю, что вы должны: " + notes[i]["text"] + " сейчас."
-        );
-        notes.splice(i, 1);
-      }
-    }
-  }, 1000);
+  //   setInterval(function () {
+  //     for (var i = 0; i < notes.length; i++) {
+  //       const curDate = new Date().getHours() + ":" + new Date().getMinutes();
+  //       if (notes[i]["time"] === curDate) {
+  //         bot.sendMessage(
+  //           notes[i]["uid"],
+  //           "Напоминаю, что вы должны: " + notes[i]["text"] + " сейчас."
+  //         );
+  //         notes.splice(i, 1);
+  //       }
+  //     }
+  //   }, 1000);
 
   bot.on("message", async (msg) => {
     const text = msg.text;
