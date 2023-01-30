@@ -1,6 +1,6 @@
 const TelegramApi = require("node-telegram-bot-api");
 const { gameOptions, againOptions } = require("./options");
-const sequelize = require("./db");
+// const sequelize = require("./db");
 const UserModel = require("./models");
 
 const token = "1702630643:AAHXiY0MRDKeF1XcuGTxWmpgdcCdAgzt4gE";
@@ -20,12 +20,12 @@ const startGame = async (chatId) => {
 };
 
 const start = async () => {
-  try {
-    await sequelize.authenticate();
-    await sequelize.sync();
-  } catch (e) {
-    console.log("Подключение к бд сломалось", e);
-  }
+  //   try {
+  //     await sequelize.authenticate();
+  //     await sequelize.sync();
+  //   } catch (e) {
+  //     console.log("Подключение к бд сломалось", e);
+  //   }
 
   bot.setMyCommands([
     { command: "/start", description: "Начальное приветствие" },
