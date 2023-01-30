@@ -8,6 +8,8 @@ const bot = new TelegramApi(token, { polling: true });
 
 const chats = {};
 
+var notes = [];
+
 const startGame = async (chatId) => {
   await bot.sendMessage(chatId, "Я загадал число");
 
@@ -23,7 +25,34 @@ const start = () => {
     { command: "/start", description: "Начальное приветствие" },
     { command: "/info", description: "Info" },
     { command: "/game", description: "Игра угадай цифру" },
+    { command: "/напомни", description: "Add task" },
   ]);
+
+  bot.onText(/напомни (.+) в (.+)/, function (msg, match) {
+    var text = match[1];
+    var time = match[2];
+    const chatId = msg.chat.id;
+
+    notes.push({ uid: chatId, time: time, text: text });
+
+    bot.sendMessage(
+      chatId,
+      "Отлично! Я обязательно напомню, если не сдохну :)"
+    );
+  });
+
+  setInterval(function () {
+    for (var i = 0; i < notes.length; i++) {
+      const curDate = new Date().getHours() + ":" + new Date().getMinutes();
+      if (notes[i]["time"] === curDate) {
+        bot.sendMessage(
+          notes[i]["uid"],
+          "Напоминаю, что вы должны: " + notes[i]["text"] + " сейчас."
+        );
+        notes.splice(i, 1);
+      }
+    }
+  }, 1000);
 
   bot.on("message", async (msg) => {
     const text = msg.text;
