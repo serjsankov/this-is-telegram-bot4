@@ -71,7 +71,6 @@ const start = async () => {
       return startGame(chatId);
     }
     const user = await UserModel.findOne({ chatId });
-
     if (data == chats[chatId]) {
       user.right += 1;
       await bot.sendMessage(
