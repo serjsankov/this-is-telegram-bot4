@@ -25,7 +25,7 @@ const start = async () => {
     await sequelize.authenticate();
     await sequelize.sync();
   } catch (e) {
-    console.log("Нет подключения к БД");
+    console.log("Нет подключения к БД", e);
   }
   bot.setMyCommands([
     { command: "/start", description: "Начальное приветствие" },
