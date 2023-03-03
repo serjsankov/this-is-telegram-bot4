@@ -36,7 +36,7 @@ const start = async () => {
   bot.on("message", async (msg) => {
     const text = msg.text;
     const chatId = msg.chat.id;
-
+    const userId = msg.chat.id;
     try {
       if (text === "/start") {
         await UserModel.create({ chatId });
@@ -47,7 +47,7 @@ const start = async () => {
         return bot.sendMessage(chatId, "Welcome to bot");
       }
       if (text === "/info") {
-        const user = await UserModel.findOne({ chatId });
+        const user = await UserModel.findOne({ userId });
         return bot.sendMessage(
           chatId,
           `Тебя зовут ${msg.from.first_name}, в игре у тебя правильных ответов ${user.right} и ${user.wrong} не правильных`
